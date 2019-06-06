@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { GridModule } from '@progress/kendo-angular-grid';
 
-import { GridEditFormComponent } from './edit-form.component';
 import { EditService } from './edit.service';
 import { AppComponent } from './app.component';
 
@@ -18,7 +17,6 @@ export function createCompiler(compilerFactory: CompilerFactory) {
 
 @NgModule({
     declarations: [
-        GridEditFormComponent,
         AppComponent
     ],
     imports: [

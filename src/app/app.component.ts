@@ -20,11 +20,10 @@ import { map } from 'rxjs/operators/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { GridModule } from '@progress/kendo-angular-grid';
 
-//import { GridEditFormComponent } from './edit-form.component';
+import { GridEditFormComponent } from './edit-form.component';
 
 @Component({
     selector: 'my-app',
@@ -78,11 +77,13 @@ export class AppComponent implements AfterContentInit, OnDestroy {
                 </ng-template>
             </kendo-grid-command-column>
         </kendo-grid>
-        
+        <kendo-grid-edit-form [model]="editDataItem" [isNew]="isNew"
+          (save)="saveHandler($event)"
+          (cancel)="cancelHandler()">
+        </kendo-grid-edit-form>
         `;
 
-        // <kendo-grid-edit-form [model]="editDataItem" [isNew]="isNew" (save)="saveHandler($event)" (cancel)="cancelHandler()">
-        // </kendo-grid-edit-form>
+
 
         @Component({
             template: template
@@ -98,17 +99,17 @@ export class AppComponent implements AfterContentInit, OnDestroy {
 
             public editDataItem: Product;
             public isNew: boolean;
-            
+
             private editService: EditService;
 
             constructor(@Inject(EditService) editServiceFactory: any) {
-               this.editService = editServiceFactory();
+                this.editService = editServiceFactory();
             }
 
             public ngOnInit(): void {
                 this.view = this.editService.pipe(map(data => process(data, this.gridState)));
 
-                 this.editService.read();
+                this.editService.read();
             }
 
 
@@ -156,13 +157,13 @@ export class AppComponent implements AfterContentInit, OnDestroy {
                 DialogModule
             ],
             providers: [
-                // {
-                //     deps: [HttpClient],
-                //     provide: EditService,
-                //     useFactory: (jsonp: HttpClient) => () => new EditService(jsonp)
-                // }
+                {
+                    deps: [HttpClient],
+                    provide: EditService,
+                    useFactory: (jsonp: HttpClient) => () => new EditService(jsonp)
+                }
             ],
-            declarations: [DynamicComponent]
+            declarations: [DynamicComponent, GridEditFormComponent]
         })
         class DynamicComponentModule { }
 
@@ -170,6 +171,6 @@ export class AppComponent implements AfterContentInit, OnDestroy {
         const factory = mod.componentFactories.find((comp) =>
             comp.componentType === DynamicComponent
         );
-        const component = this._container.createComponent(factory);
+        this._container.createComponent(factory);
     }
 }
