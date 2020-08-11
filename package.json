@@ -49,7 +49,7 @@
     "@progress/kendo-angular-scrollview": "2.2.1-dev.201905300735",
     "@progress/kendo-angular-sortable": "2.1.1-dev.201905291046",
     "@progress/kendo-angular-toolbar": "1.1.2-dev.201905291056",
-    "@progress/kendo-angular-editor": "0.5.2-dev.201905310744",
+    "@progress/kendo-angular-editor": "1.2.3",
     "@progress/kendo-angular-tooltip": "1.2.2-dev.201905291049",
     "@progress/kendo-angular-treeview": "3.1.2-dev.201905291054",
     "@progress/kendo-angular-upload": "4.3.2-dev.201905291055"
